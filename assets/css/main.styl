@@ -1,0 +1,67 @@
+* 
+  margin: 0;
+  padding: 0;
+
+
+.container 
+  max-width 1200px
+  margin 0 auto
+
+
+.site-header
+  margin-bottom 40px
+  
+  & .container
+    display flex
+    justify-content: space-between
+    align-items center
+
+
+.site-header .site-title
+  margin 0 15px 0 0
+
+
+.menu
+  display flex
+
+
+.menu-toggle
+  display none
+
+
+.site-header .site-title a
+  font-size 1.5em
+  color black
+
+
+nav ul li:not(:last-child)
+  margin-right 30px
+
+
+.site-footer
+  margin-top 40px
+
+
+.post
+  &:not(:last-child)
+    margin-bottom 20px
+    
+    
+.pagination
+  .nav-links 
+    display inline-flex 
+    border 1px solid #ddd
+    border-radius 5px
+    overflow hidden
+  
+    .page-numbers
+      padding 4px 8px
+    
+      &:not(:last-child)
+        border-right 1px solid #ddd
+      
+    .current 
+      color #fff
+      background #337ab7
+
+  
