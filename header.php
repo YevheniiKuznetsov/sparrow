@@ -35,15 +35,15 @@
             </div>
 
             <nav id="nav-wrap" class="main-navigation">
-              <?php
-			     wp_nav_menu(
-				  array(
-					'theme_location' => 'menu-1',
-                    'container' => null
-				    )
-			     );
-			   ?>
-          </nav><!-- #site-navigation -->
+              <?php 
+                 wp_nav_menu( [
+	                 'theme_location'  => 'top',
+	                 'container'       => 'ul', 
+	                 'menu_class'      => 'nav', 
+	                 'menu_id'         => 'nav',
+                 ] );
+              ?>   
+            </nav><!-- #site-navigation -->
 
          </div>
 

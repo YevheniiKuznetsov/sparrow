@@ -3,7 +3,6 @@
 */
 
 
-
 ;(function( $, window, document, undefined )
 {
 	$.fn.doubleTapToGo = function( params )
