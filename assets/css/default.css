@@ -1043,7 +1043,7 @@ ul#nav li a {
 
 ul#nav li a:active { background-color: transparent !important; }
 ul#nav li:hover > a,
-ul#nav li.current a { color: #fff; }
+ul#nav li.current_page_item a { color: #fff; }
 
 /* adds down arrow */
 ul#nav span:after {

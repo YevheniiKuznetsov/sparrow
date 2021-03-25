@@ -3,6 +3,7 @@
 add_action( 'wp_enqueue_scripts', 'style_theme' );
 add_action( 'wp_footer', 'scripts_theme' );
 add_action( 'after_setup_theme', 'theme_register_nav_menu' );
+add_action( 'widgets_init', 'theme_register_widgets' );
 
 function style_theme() {
   wp_enqueue_style('main-style', get_stylesheet_uri());
@@ -19,5 +20,20 @@ function scripts_theme() {
 }
 
 function theme_register_nav_menu() {
-	register_nav_menu( 'top', 'Меню в шапке' );
+  register_nav_menus( [
+		'top' => 'Меню в шапке',
+		'footer' => 'Меню в подвале'
+	] );
+}
+
+function theme_register_widgets() {
+  register_sidebar( array(
+		'name' => "Правая боковая панель сайта",
+		'id' => 'right-sidebar',
+		'description' => 'Эти виджеты будут показаны в правой колонке сайта',
+    'before_widget' => '<div class="homepage-widget-block">',
+		'after_widget' => '</div>',
+		'before_title' => '<h5 class="widgettitle">',
+		'after_title' => '</h5>',
+	) );
 }
