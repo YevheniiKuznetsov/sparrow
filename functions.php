@@ -24,6 +24,9 @@ function theme_register_nav_menu() {
 		'top' => 'Меню в шапке',
 		'footer' => 'Меню в подвале'
 	] );
+  add_theme_support( 'title-tag' );
+  add_theme_support( 'post-thumbnails', array( 'post' ) ); 
+  add_image_size( 'mytheme-mini', 1300, 500, true );
 }
 
 function theme_register_widgets() {
@@ -36,4 +39,31 @@ function theme_register_widgets() {
 		'before_title' => '<h5 class="widgettitle">',
 		'after_title' => '</h5>',
 	) );
+}
+
+remove_filter ('the_content', 'wpautop', 10);
+remove_filter ('comment_text', 'wpautop', 10);
+// Remove auto formatting
+remove_filter('the_content', 'wptexturize', 10);
+remove_filter('comment_text', 'wptexturize', 10);
+remove_filter('the_title', 'wptexturize', 10);
+
+add_filter('the_content','replace_content', 999999999);
+
+function replace_content($content) {
+  $content = htmlentities($content, null, 'utf-8');
+  $content = str_replace("&nbsp;", " ", $content);
+  $content = html_entity_decode($content);
+  return $content;
+    }
+
+add_filter( 'excerpt_length', function(){
+	return 20;
+} );
+add_filter('navigation_markup_template', 'my_navigation_markup_template');
+function my_navigation_markup_template() {
+  return '
+  <nav class="navigation %1$s" role="navigation">
+    <div class="nav-links">%3$s</div>
+  </nav>';
 }
