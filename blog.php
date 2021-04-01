@@ -28,22 +28,36 @@ Template Name: Blog
 
       <div id="page-content" class="row">
 
+      <p>blog</p>
+
          <div id="primary" class="eight columns">
 
+         <?php
+            // параметры по умолчанию
+            $posts = get_posts( array(
+	            'numberposts' => 3,
+	            'category'    => 0,
+	            'post_type'   => 'post',
+	            'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
+            ) );
+
+            foreach( $posts as $post ){
+	            setup_postdata($post);
+            ?>
+
             <article class="post">
 
                <div class="entry-header cf">
 
-                  <h1><a href="single.html" title="">Proin gravida nibh vel velit auctor aliquet Aenean sollicitudin auctor.</a></h1>
+                  <h1><a href="<?php the_permalink() ?>" title=""><?php the_title(); ?></a></h1>
 
                   <p class="post-meta">
 
-                     <time class="date" datetime="2014-01-14T11:24">Jan 14, 2014</time>
+                     <time clas
+                     s="date" datetime="2014-01-14T11:24"><?php the_time('F jS, Y') ?></time>
                      /
                      <span class="categories">
-                     <a href="#">Design</a> /
-                     <a href="#">User Inferface</a> /
-                     <a href="#">Web Design</a>
+                        <?php the_tags( '', ' / ' ); ?>
                      </span>
 
                   </p>
@@ -51,106 +65,21 @@ Template Name: Blog
                </div>
 
                <div class="post-thumb">
-                  <a href="single.html" title=""><img src="images/post-image/post-image-1300x500-01.jpg" alt="post-image" title="post-image"></a>
+                  <a href="<?php the_permalink() ?>" title=""><?php the_post_thumbnail( 'mytheme-mini' ) ?></a>
                </div>
 
-               <div class="post-content">
+               <div class="post-content"><?php the_excerpt(); ?></div>
 
-                  <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
-                  nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate
-                  cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a
-                  ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. </p>
+            </article>
 
-               </div>
+            <?php the_posts_pagination(); ?>
 
-            </article> <!-- post end -->
+            <?php
+            }
 
-            <article class="post">
-
-               <div class="entry-header cf">
-
-                  <h1><a href="single.html" title="">Proin gravida nibh vel velit auctor aliquet Aenean sollicitudin auctor.</a></h1>
-
-                  <p class="post-meta">
-
-                     <time class="date" datetime="2014-01-14T11:24">Jan 14, 2013</time>
-                     /
-                     <span class="categories">
-                     <a href="#">Design</a> /
-                     <a href="#">User Inferface</a> /
-                     <a href="#">Web Design</a>
-                     </span>
-
-                  </p>
-
-               </div>
-
-               <div class="post-thumb">
-                  <a href="single.html" title=""><img src="images/post-image/post-image-1300x500-02.jpg" alt="post-image" title="post-image"></a>
-               </div>
-
-               <div class="post-content">
-
-                  <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
-                  nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate
-                  cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a
-                  ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. </p>
-
-               </div>
-
-            </article> <!-- post end -->
-
-            <article class="post">
-
-               <div class="entry-header cf">
-
-                  <h1><a href="single.html" title="">Proin gravida nibh vel velit auctor aliquet Aenean sollicitudin auctor.</a></h1>
-
-                  <p class="post-meta">
-
-                     <time class="date" datetime="2014-01-14T11:24">Jan 14, 2014</time>
-                     /
-                     <span class="categories">
-                     <a href="#">Design</a> /
-                     <a href="#">User Inferface</a> /
-                     <a href="#">Web Design</a>
-                     </span>
-
-                  </p>
-
-               </div>
-
-               <div class="post-thumb">
-                  <a href="single.html" title=""><img src="images/post-image/post-image-1300x500-03.jpg" alt="post-image" title="post-image"></a>
-               </div>
-
-               <div class="post-content">
-
-                  <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
-                  nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate
-                  cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a
-                  ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. </p>
-
-               </div>
-
-            </article> <!-- post end -->
-
-            <!-- Pagination -->
-            <nav class="col full pagination">
-  			      <ul>
-                  <li><span class="page-numbers prev inactive">Prev</span></li>
-  				      <li><span class="page-numbers current">1</span></li>
-  				      <li><a href="#" class="page-numbers">2</a></li>
-                  <li><a href="#" class="page-numbers">3</a></li>
-                  <li><a href="#" class="page-numbers">4</a></li>
-                  <li><a href="#" class="page-numbers">5</a></li>
-                  <li><a href="#" class="page-numbers">6</a></li>
-                  <li><a href="#" class="page-numbers">7</a></li>
-                  <li><a href="#" class="page-numbers">8</a></li>
-                  <li><a href="#" class="page-numbers">9</a></li>
-  				      <li><a href="#" class="page-numbers next">Next</a></li>
-  			      </ul>
-  		      </nav>
+            wp_reset_postdata(); // сброс
+         ?>
+         <?php the_posts_pagination(); ?>
 
          </div> <!-- Primary End-->
 
@@ -201,4 +130,4 @@ Template Name: Blog
 
    </section> <!-- Tweets Section End-->
 
-   <?php get_footer(); ?>
+   <?php get_footer(); ?> 

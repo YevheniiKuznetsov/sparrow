@@ -3,7 +3,14 @@
 add_action( 'wp_enqueue_scripts', 'style_theme' );
 add_action( 'wp_footer', 'scripts_theme' );
 add_action( 'after_setup_theme', 'theme_register_nav_menu' );
-add_action( 'widgets_init', 'theme_register_widgets' );
+add_action( 'widgets_init', 'theme_register_widgets' ); 
+add_action( 'the_content', 'change_content' ); 
+add_action( 'some_action', 'my_action' ); 
+add_shortcode( 'some_short', 'my_short' ); 
+add_action('init', 'my_custom_init');
+add_action('init', 'my_custom_init_lala');
+add_action( 'init', 'my_unregister_post_type', 999 );
+
 
 function style_theme() {
   wp_enqueue_style('main-style', get_stylesheet_uri());
@@ -25,7 +32,8 @@ function theme_register_nav_menu() {
 		'footer' => 'Меню в подвале'
 	] );
   add_theme_support( 'title-tag' );
-  add_theme_support( 'post-thumbnails', array( 'post' ) ); 
+  add_theme_support( 'post-thumbnails', array( 'post', 'book', 'lalago' ) ); 
+  add_theme_support( 'post-formats', array( 'aside', 'gallery', 'video' ) );
   add_image_size( 'mytheme-mini', 1300, 500, true );
 }
 
@@ -40,6 +48,87 @@ function theme_register_widgets() {
 		'after_title' => '</h5>',
 	) );
 }
+
+function change_content($content) {
+  $content.= '<br> Спасибо что умеете читать!';
+  return $content;
+}
+
+function my_action() {
+  echo 'my action text';
+}
+
+function my_short() {
+  return 'Short text';
+}
+
+function my_custom_init(){
+	register_post_type('book', array(
+		'labels'             => array(
+			'name'               => 'Портфолио', // Основное название типа записи
+			'singular_name'      => 'Портфолио', // отдельное название записи типа Book
+			'add_new'            => 'Добавить работу',
+			'add_new_item'       => 'Добавление работы',
+			'edit_item'          => 'Редактирование работы',
+			'new_item'           => 'Новая работа',
+			'view_item'          => 'Смотреть работу',
+			'search_items'       => 'Искать работу в портфолио',
+			'not_found'          => 'Не найдено',
+			'not_found_in_trash' => 'Не найдено',
+			'parent_item_colon'  => '',
+			'menu_name'          => 'Портфолио'
+		  ),
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => true,
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array('title','editor','author','thumbnail','excerpt','comments')
+	) );
+}
+
+
+function my_custom_init_lala(){
+	register_post_type('lala', array(
+		'labels'             => array(
+			'name'               => 'Laala', // Основное название типа записи
+			'singular_name'      => 'Laaala', // отдельное название записи типа Book
+			'add_new'            => 'Добавить новую',
+			'add_new_item'       => 'Добавить новую книгу',
+			'edit_item'          => 'Редактировать книгу',
+			'new_item'           => 'Новая книга',
+			'view_item'          => 'Посмотреть книгу',
+			'search_items'       => 'Найти книгу',
+			'not_found'          => 'Книг не найдено',
+			'not_found_in_trash' => 'В корзине книг не найдено',
+			'parent_item_colon'  => '',
+			'menu_name'          => 'Laala'
+
+		  ),
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => true,
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array('title','editor','author','thumbnail','excerpt','comments')
+	) );
+}
+
+function my_unregister_post_type(){
+	unregister_post_type('lala');
+}
+
+
 
 remove_filter ('the_content', 'wpautop', 10);
 remove_filter ('comment_text', 'wpautop', 10);

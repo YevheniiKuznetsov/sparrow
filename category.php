@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Blog
+Template Name: Category
 */
 ?>
 
@@ -27,6 +27,8 @@ Template Name: Blog
    <div class="content-outer">
 
       <div id="page-content" class="row">
+
+      <p>cate</p>
 
          <div id="primary" class="eight columns">
 
