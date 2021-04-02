@@ -1,9 +1,4 @@
 <?php
-/**
- * Template Name: Портфолио пост
- * Template Post Type: book
- */
-
 get_header();
 ?>
 
@@ -12,7 +7,7 @@ get_header();
       <div class="row">
 
          <div class="ten columns centered text-center">
-            <h1>Our Amazing Works<span>.</span></h1>
+            <h1>Taxonomy<span>.</span></h1>
 
             <p>Aenean condimentum, lacus sit amet luctus lobortis, dolores et quas molestias excepturi
             enim tellus ultrices elit, amet consequat enim elit noneas sit amet luctu. </p>
@@ -32,54 +27,51 @@ get_header();
 
             <div id="secondary"  class="four columns entry-details">
 
-                  <h1><?php the_title(); ?></h1>
+               <h1>Our Portfolio.</h1>
 
-                  <div class="entry-description">
+               <p class="lead">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
+               nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh.</p>
 
-                     <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
-                     nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate
-                     cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a
-                     ornare odio.</p>
+               <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
+               nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate
+               cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a
+               ornare odio.</p>
 
-                  </div>
+            </div> <!-- Secondary End-->
 
-                  <ul class="portfolio-meta-list">
-						   <li><span>Date: </span><?php the_field('project_date'); ?></li>
-						   <li><span>Client </span><?php the_field('client'); ?></li>
-						   <li><span>Skills: </span><?php the_field('skills'); ?></li>
-				      </ul>
+            <div id="primary" class="eight columns portfolio-list">
 
-                  <a class="button" href="http://behance.net">View project</a>
+                <div id="portfolio-wrapper" class="bgrid-halves cf">
 
-            </div> <!-- secondary End-->
+                  <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+                  	<!-- Цикл WordPress -->
+                  	<div class="columns portfolio-item first">
+                      <div class="item-wrap">
+          				      <a href="<?php the_permalink();?>">
+                          <?php the_post_thumbnail();?>
+                          <div class="overlay"></div>
+                          <div class="link-icon"><i class="fa fa-link"></i></div>
+                        </a>
+          					    <div class="portfolio-item-meta">
+          					      <h5><a href="<?php the_permalink();?>"><?php the_title();?></a></h5>
+                          <?php the_excerpt();?>
+          					    </div>
+                      </div>
+                    </div>
+                  	
+                  <?php endwhile; else : ?>
+                  	<p>Записей нет.</p>
+                  <?php endif; ?>
 
-            <div id="primary" class="eight columns">
-
-               <div class="entry-media">
-
-                  <?php the_post_thumbnail( 'mytheme-mini' ) ?>
-
-                  <img src="<?php the_field('project_photo'); ?>" alt="image">
+          			</div>
 
                </div>
-
-               <div class="entry-excerpt">
-
-                <?php the_post(); ?>
-                <?php the_content(); ?>
-
-					</div>
 
             </div> <!-- primary end-->
 
          </section> <!-- end section -->
 
-         <ul class="post-nav cf">
-			   <li class="prev"><a href="#" rel="prev"><strong>Previous Entry</strong> Duis Sed Odio Sit Amet Nibh Vulputate</a></li>
-				<li class="next"><a href="#" rel="next"><strong>Next Entry</strong> Morbi Elit Consequat Ipsum</a></li>
-			</ul>
-
-      </div>
+      </div> <!-- #page-content end-->
 
    </div> <!-- content End-->
 
@@ -120,4 +112,4 @@ get_header();
 
    </section> <!-- Tweet Section End-->
 
-<?php get_footer(); ?>
+<?php get_footer();?>

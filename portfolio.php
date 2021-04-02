@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Портфолто
+Template Name: Портфолио
 */
 
 get_header();
